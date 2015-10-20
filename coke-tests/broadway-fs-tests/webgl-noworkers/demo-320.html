@@ -10,6 +10,7 @@
   <script type="text/javascript" src="js/stream.js"></script>
 
   <script type="text/javascript" src="js/mp4.js"></script>
+  <script type="text/javascript" src="js/fpsmeter.js"></script>
 
   <script type="text/javascript">
     function load() {
@@ -18,6 +19,13 @@
         var broadway = new Broadway(nodes[i]);
         // broadway.play();
       }
+    }
+    var meter = new FPSMeter();
+    run();
+    function run()
+    {
+        meter.tick();
+        requestAnimationFrame(run)
     }
   </script>
 

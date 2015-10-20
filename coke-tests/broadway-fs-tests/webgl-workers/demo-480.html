@@ -19,6 +19,13 @@
         // broadway.play();
       }
     }
+    var meter = new FPSMeter();
+    run();
+    function run()
+    {
+        meter.tick();
+        requestAnimationFrame(run)
+    }
   </script>
 
   <!-- <canvas id='canvas' width="640" height="100" style="background-color: #333333;"></canvas> -->

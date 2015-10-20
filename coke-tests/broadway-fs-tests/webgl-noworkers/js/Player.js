@@ -74,7 +74,6 @@ p.decode(<binary>);
           // the browser doesn't even know what WebGL is
           webgl = false;
         } else {
-            console.log('SCHIFO MERDA ODIO')
           var canvas = document.createElement('canvas');
           var ctx = canvas.getContext("webgl");
           if (!ctx) {
