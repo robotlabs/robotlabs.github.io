@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=320, initial-scale=1"/>
+	<title>jsmpeg streaming</title>
+	<style type="text/css">
+		body {
+			background: #333;
+			text-align: center;
+
+		}
+		#videoCanvas {
+			/* Always stretch the canvas to 640x480, regardless of its
+			internal size. */
+			width: 100%;
+			height: 100%;
+		}
+	</style>
+</head>
+<body>
+	<!-- The Canvas size specified here is the "initial" internal resolution. jsmpeg will
+		change this internal resolution to whatever the source provides. The size the
+		canvas is displayed on the website is dictated by the CSS style.
+	-->
+	<canvas id="videoCanvas" width="640" height="480">
+		<p>
+			Please use a browser that supports the Canvas Element, like
+			<a href="http://www.google.com/chrome">Chrome</a>,
+			<a href="http://www.mozilla.com/firefox/">Firefox</a>,
+			<a href="http://www.apple.com/safari/">Safari</a> or Internet Explorer 10
+		</p>
+	</canvas>
+	<script type="text/javascript" src="jsmpg.js"></script>
+	<script type="text/javascript" src="stats.min.js"></script>
+	<script type="text/javascript" src="fpsmeter.js"></script>
+	<script type="text/javascript">
+	var stats = new Stats();
+	stats.setMode( 1 ); // 0: fps, 1: ms, 2: mb
+	document.body.appendChild( stats.domElement );
+
+	var videoParam = location.search.split('video=')[1];
+	console.log('videoParam ' , videoParam)
+	// align top-left
+	stats.domElement.style.position = 'absolute';
+	stats.domElement.style.left = '0px';
+	stats.domElement.style.top = '0px';
+
+	var meter = new FPSMeter();
+	// Meter will use `light` theme.
+	//var meter = new FPSMeter({ theme: 'light' });
+	// Meter will be attached to #target element, and will display graph.
+	//var meter = new FPSMeter(document.getElementById('target'), { graph: 1 });
+
+		var arrMpg =
+			[
+				'v-animatrix-640',
+				'v-ben-720',
+				'v-c4-352',
+				'v-cocaine-720',
+				'v-patige-512-2',
+				'v-rockfish-480',
+				'v-soccer-320',
+				'v-z-428'
+			];
+		// Setup the WebSocket connection and start the player
+		//var client = new WebSocket( 'ws://example.com:8084/' );
+
+		//var canvas = document.getElementById('videoCanvas');
+		//var player = new jsmpeg(null, {canvas:canvas});
+
+		var canvas = document.getElementById('videoCanvas');
+		var player = new jsmpeg( 'mpg/' + arrMpg[4] + '.mpg', {canvas: canvas, autoplay: true, loop: true});
+
+		player.pause();
+		player.play();
+		player.stop();
+
+		// setInterval( runx , 1/60 );
+		// function runx() {
+		// 	stats.begin();
+		// 	stats.end();
+		// 	//meter.tick();
+		// 	console.log('+++++')
+		// }
+		run();
+		function run()
+		{
+			// console.log('ciao')
+			// stats.begin();
+			// stats.end();
+			meter.tick();
+			requestAnimationFrame(run)
+		}
+
+	</script>
+
+</body>
+</html>
